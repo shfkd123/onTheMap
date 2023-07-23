@@ -6,8 +6,8 @@ const theme = extendTheme({
     body: `'Noto Sans KR', sans-serif`,
   },
   colors: {
-    main: "blue",
-    test: "yellow",
+    primary: "#268EFF",
+    systemRed: "#D70015",
   },
   components: {
     Button: themeBtn,
