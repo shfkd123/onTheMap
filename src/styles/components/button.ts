@@ -16,6 +16,9 @@ const themeBtn = {
       gap: "8px",
       borderRadius: "4px",
       color: "#fff",
+      textAlign: "center",
+      fontWeight: "700",
+      fontSize: "14px",
     },
 
     standardSmall: {
@@ -27,9 +30,14 @@ const themeBtn = {
       borderRadius: "2px",
       color: "#fff",
     },
+    circle: {
+      w: "40px",
+      h: "40px",
+      borderRadius: "50%",
+    },
   },
   defaultProps: {
-    variants: "standardMedium",
+    variants: "standardLarge",
   },
 };
 export default themeBtn;
