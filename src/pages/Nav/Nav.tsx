@@ -31,7 +31,7 @@ const Nav = () => {
                 navigate("/map");
               }}
             >
-              <Image w="14px" h="14px" src={Map} alt="mapTap" />{" "}
+              <Image w="14px" h="14px" src={Map} alt="mapTap" />
               <Box fontSize="20px" fontWeight="700">
                 Map
               </Box>
@@ -45,7 +45,7 @@ const Nav = () => {
                 navigate("/board");
               }}
             >
-              <Image w="14px" h="14px" src={Board} alt="boardTap" />{" "}
+              <Image w="14px" h="14px" src={Board} alt="boardTap" />
               <Box fontSize="20px" fontWeight="700">
                 Board
               </Box>

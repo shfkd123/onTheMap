@@ -42,13 +42,18 @@ const Board = () => {
           <Box h="134px">
             <Box w="40px" h="58px" textAlign="center" m="18px">
               <Button w="40px" h="40px" variant="circle" bg="primary">
-                <Store width="48" height="48" fill="#f5b914" />
+                <Store width="12" height="12" fill="#f5b914" />
               </Button>
               매장
             </Box>
             <Box w="40px" h="58px" textAlign="center" m="18px">
               <Button w="40px" h="40px" variant="circle" bg="primary">
-                <CommercialDistrict width="48" height="48" fill="#f5b914" />
+                <CommercialDistrict
+                  width="100%"
+                  height="100%"
+                  //fill={fill ? "rgba(191, 191, 191, 1)" : "rgba(67, 67, 67, 1)"}
+                  fill="rgba(191, 191, 191, 1)"
+                />
               </Button>
               상권
             </Box>
