@@ -3,12 +3,12 @@ import CommercialDistrict from "../../assets/images/store2.svg";
 
 export const SideBarData = [
   {
-    id: "1",
+    id: 1,
     name: "매장",
     svg: Store,
   },
   {
-    id: "2",
+    id: 2,
     name: "상권",
     svg: CommercialDistrict,
   },

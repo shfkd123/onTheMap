@@ -31,8 +31,6 @@ const themeBtn = {
       color: "#fff",
     },
     circle: {
-      w: "40px",
-      h: "40px",
       borderRadius: "50%",
     },
   },

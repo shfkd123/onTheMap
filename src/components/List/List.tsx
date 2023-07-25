@@ -1,3 +1,6 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
+import Pagination from "../Pagination/Pagination";
 import {
   Box,
   Flex,
@@ -9,12 +12,50 @@ import {
   Td,
   Table,
   Checkbox,
+  Image,
+  Center,
 } from "@chakra-ui/react";
+import { ThStoreData, ThBsnsData, StoreStatus } from "./ListData";
+import DetailIcon from "../../assets/images/detailIcon.svg";
+import { Data } from "../interfaces/Store";
 
-const List = () => {
+const List = (props: any) => {
+  const [bsnsData, setBsnsData] = useState<Data[]>([]);
+  const [storeData, setStoreData] = useState<Data[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
+  const [totalItem, setTotalItem] = useState(1);
+  //
+
+  useEffect(() => {
+    const axiosFunc = async (url: string) => {
+      const response = await axios.get<Data[]>(url);
+      return response;
+    };
+
+    const getStoreData = async () => {
+      const storeResponse = await axiosFunc("./data/store.json");
+      const bsnsResponse = await axiosFunc("./data/bsns.json");
+      setStoreData(storeResponse.data.list);
+      setBsnsData(bsnsResponse.data);
+    };
+
+    console.log(bsnsData);
+    getStoreData();
+  }, []);
+
+  useEffect(() => {
+    if (storeData) {
+      setTotalItem(storeData.length);
+      const totalPage = Math.ceil(storeData.length / 6);
+      setTotalPage(totalPage);
+    }
+  }, [storeData, bsnsData]);
+
   return (
     <Box
       // w="1180px"
+      // h="604px"
       w="calc(100vw - 90px)"
       h="calc(100vh - 250px)"
       border="1px solid #8C8C8C"
@@ -35,85 +76,116 @@ const List = () => {
         </Flex>
       </Box>
       <TableContainer>
-        <Table size="lg">
+        <Table variant="unstyled" size="lg" gap="4px">
           <Thead>
-            <Tr>
-              <Th></Th>
-              <Th fontSize="16px" fontWeight="700" color="rgba(0, 0, 0, 0.5)">
-                번호
-              </Th>
-              <Th fontSize="16px" fontWeight="700" color="rgba(0, 0, 0, 0.5)">
-                매장명
-              </Th>
-              <Th fontSize="16px" fontWeight="700" color="rgba(0, 0, 0, 0.5)">
-                매장코드
-              </Th>
-              <Th fontSize="16px" fontWeight="700" color="rgba(0, 0, 0, 0.5)">
-                상태
-              </Th>
-              <Th fontSize="16px" fontWeight="700" color="rgba(0, 0, 0, 0.5)">
-                타입
-              </Th>
-              <Th fontSize="16px" fontWeight="700" color="rgba(0, 0, 0, 0.5)">
-                대표자
-              </Th>
-              <Th fontSize="16px" fontWeight="700" color="rgba(0, 0, 0, 0.5)">
-                개업일
-              </Th>
-              <Th fontSize="16px" fontWeight="700" color="rgba(0, 0, 0, 0.5)">
-                주소
-              </Th>
-              <Th fontSize="16px" fontWeight="700" color="rgba(0, 0, 0, 0.5)">
-                상세보기
-              </Th>
-            </Tr>
+            <Box>
+              <Tr>
+                <Th></Th>
+                {props.bsnsTab
+                  ? ThBsnsData.map((data) => {
+                      return (
+                        <Th
+                          key={data.id}
+                          fontSize="16px"
+                          fontWeight="700"
+                          color="rgba(0, 0, 0, 0.5)"
+                        >
+                          {data.name}
+                        </Th>
+                      );
+                    })
+                  : ThStoreData.map((data) => {
+                      return (
+                        <Th
+                          key={data.id}
+                          fontSize="16px"
+                          fontWeight="700"
+                          color="rgba(0, 0, 0, 0.5)"
+                        >
+                          {data.name}
+                        </Th>
+                      );
+                    })}
+              </Tr>
+            </Box>
           </Thead>
-          <Tbody>
-            <Tr>
-              <Td>
-                <Checkbox />
-              </Td>
-              <Td>1</Td>
-              <Td>서울역점</Td>
-              <Td>12839</Td>
-              <Td>입점</Td>
-              <Td>B</Td>
-              <Td> 김양일 (010-3928-7028)</Td>
-              <Td>2022-03-23</Td>
-              <Td>서울특별시 용산구 동자동 366 트윈시티 1103호</Td>
-              <Td>ㅁ</Td>
-            </Tr>
-            <Tr>
-              <Td>
-                <Checkbox />
-              </Td>
-              <Td>2</Td>
-              <Td>서울역점</Td>
-              <Td>12839</Td>
-              <Td>입점</Td>
-              <Td>B</Td>
-              <Td> 김양일 (010-3928-7028)</Td>
-              <Td>2022-03-23</Td>
-              <Td>서울특별시 용산구 동자동 366 트윈시티 1103호</Td>
-              <Td>ㅁ</Td>
-            </Tr>
-            <Tr>
-              <Td>
-                <Checkbox />
-              </Td>
-              <Td>3</Td>
-              <Td>서울역점</Td>
-              <Td>12839</Td>
-              <Td>입점</Td>
-              <Td>B</Td>
-              <Td> 김양일 (010-3928-7028)</Td>
-              <Td>2022-03-23</Td>
-              <Td>서울특별시 용산구 동자동 366 트윈시티 1103호</Td>
-              <Td>ㅁ</Td>
-            </Tr>
-          </Tbody>
+          {props.bsnsTab ? (
+            <Tbody w="356px">
+              {bsnsData?.slice(0, 6).map((data, index) => {
+                return (
+                  <Tr key={data.bsDisCode}>
+                    <Box
+                      borderRadius="12px"
+                      border="1px solid #BFBFBF"
+                      gap="10px"
+                      m="3px"
+                    >
+                      <Td>
+                        <Checkbox />
+                      </Td>
+                      <Td>{index + 1}</Td>
+                      <Td>{data.bsDisName}</Td>
+                      <Td>{data.bsDisCode}</Td>
+                      <Td>후보상권</Td>
+                      {/* <Td>{data.linkStore[0].storeName}</Td> */}
+                      <Td>{data.bsDisName})</Td>
+                      <Td>{data.addrNew}</Td>
+                      <Td>
+                        <Image src={DetailIcon} alt="detailShowIcon" w="16px" />
+                      </Td>
+                    </Box>
+                  </Tr>
+                );
+              })}
+            </Tbody>
+          ) : (
+            <Tbody w="356px">
+              {storeData?.slice(0, 6).map((data, index) => {
+                const matchedStatus = StoreStatus.find(
+                  (status) => status.value === data.storeStatus
+                );
+                return (
+                  <Tr key={data.storeCode}>
+                    <Box
+                      borderRadius="12px"
+                      border="1px solid #BFBFBF"
+                      gap="10px"
+                      m="3px"
+                    >
+                      <Td>
+                        <Checkbox />
+                      </Td>
+                      <Td>{index + 1}</Td>
+                      <Td>{data.storeName}</Td>
+                      <Td>{data.storeCode}</Td>
+                      <Td>{matchedStatus ? matchedStatus.name : "기타"}</Td>
+                      <Td>{data.storeType}</Td>
+                      <Td>
+                        {data.ownerName}({data.ownerPhone})
+                      </Td>
+                      <Td>{data.openDate.substr(0, 10)}</Td>
+                      <Td>{data.New}</Td>
+                      <Td>
+                        <Image src={DetailIcon} alt="detailShowIcon" w="16px" />
+                      </Td>
+                    </Box>
+                  </Tr>
+                );
+              })}
+            </Tbody>
+          )}
         </Table>
       </TableContainer>
+
+      <Center p="10px">
+        <Pagination
+          totalItem={totalItem}
+          totalPage={totalPage}
+          limit={6}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+      </Center>
     </Box>
   );
 };
