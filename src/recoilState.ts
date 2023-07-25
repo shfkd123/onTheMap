@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-export const isSiDoRecoil = atom({
-  key: "isSiDoRecoil",
-  default: "",
+export const loginSuccess = atom({
+  key: "loginSuccess",
+  default: false,
 });

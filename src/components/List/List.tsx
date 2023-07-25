@@ -40,7 +40,6 @@ const List = (props: any) => {
       setBsnsData(bsnsResponse.data);
     };
 
-    console.log(bsnsData);
     getStoreData();
   }, []);
 

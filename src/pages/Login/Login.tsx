@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { ReactComponent as PwIcon } from "../../assets/images/EyeInvisible.svg";
 import Logo from "../../assets/images/logo.svg";
+import { ReactComponent as Alert } from "../../assets/images/exclamation-circle.svg";
 
 const Login = () => {
   const [inputValues, setInputValues] = useState({
@@ -26,11 +27,19 @@ const Login = () => {
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isPwValid, setIsPwValid] = useState(false);
   const [isCofirmAlertShow, setIsCofirmAlertShow] = useState(false);
+  const [isCapsLock, setIsCapsLock] = useState(false);
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setInputValues({ ...inputValues, [name]: value });
     validation(name, value);
+  };
+
+  const checkCapsLock = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.getModifierState("CapsLock")) {
+      //alert("Caps lock 버튼이 켜져있습니다");
+      setIsCapsLock(true);
+    }
   };
 
   const validation = (name: string, value: string) => {
@@ -92,6 +101,7 @@ const Login = () => {
           <Flex h="162px" flexDir="column" justify="space-between">
             <FormControl isInvalid={isEmailValid}>
               <Input
+                position="relative"
                 w="360px"
                 h="40px"
                 p="8px, 12px, 8px, 12px"
@@ -107,6 +117,9 @@ const Login = () => {
                 onChange={(e) => {
                   handleInput(e);
                 }}
+                onKeyDown={(e) => {
+                  checkCapsLock(e);
+                }}
               />
               {!isEmailValid ? null : (
                 <FormErrorMessage fontSize="12px" fontWeight="400">
@@ -114,6 +127,25 @@ const Login = () => {
                 </FormErrorMessage>
               )}
             </FormControl>
+            {isCapsLock && (
+              <Flex
+                w="180px"
+                h="22px"
+                position="absolute"
+                top="38%"
+                right="25%"
+                pt="3px"
+                gap="8px"
+                fontSize="12px"
+                fontWeight="400"
+                color="rgba(0, 0, 0, 0.8)"
+                boxShadow="0px 0px 4px 0px rgba(0, 0, 0, 0.25)"
+                textAlign="center"
+              >
+                <Alert width="14" height="14" />
+                Caps lock 버튼이 켜져있습니다.
+              </Flex>
+            )}
 
             <FormControl isInvalid={isPwValid}>
               <InputGroup>
@@ -134,6 +166,9 @@ const Login = () => {
                     value={inputValues.pw}
                     onChange={(e) => {
                       handleInput(e);
+                    }}
+                    onKeyDown={(e) => {
+                      checkCapsLock(e);
                     }}
                   />
                   <InputRightElement

@@ -17,7 +17,7 @@ const Search = (props: any) => {
   return (
     <Flex
       flexDir="column"
-      justify="space-between"
+      justify="flex-start"
       w="calc(100vw - 90px)"
       // w="1180px"
       h="192px"
@@ -136,6 +136,8 @@ const Search = (props: any) => {
           />
         </Flex>
       )}
+
+      {props.bsnsTab && <Box h="50px" />}
 
       <Flex justify="flex-end">
         <Button variant="standardMedium" bg="primary" color="white">

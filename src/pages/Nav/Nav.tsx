@@ -1,10 +1,15 @@
+import { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { Box, Flex, Image } from "@chakra-ui/react";
 import Logo from "../../assets/images/logo_v1.svg";
-import Map from "../../assets/images/DataMap.svg";
-import Board from "../../assets/images/ERP Dashboard.svg";
+import { ReactComponent as Map } from "../../assets/images/DataMap.svg";
+import { ReactComponent as Board } from "../../assets/images/ERP Dashboard.svg";
+// import { useRecoilState } from "recoil";
+// import { loginSuccess } from "../../recoilState";
 
 const Nav = () => {
+  //const [isloginSuccess, setIsloginSuccess] = useRecoilState(loginSuccess);
+  const [isMapTab, setIsMapTab] = useState("");
   const navigate = useNavigate();
 
   return (
@@ -27,12 +32,22 @@ const Nav = () => {
               align="center"
               w="72px"
               h="46px"
+              borderBottom={isMapTab === "map" ? "2px solid black" : "none"}
               onClick={() => {
+                setIsMapTab("map");
                 navigate("/map");
               }}
             >
-              <Image w="14px" h="14px" src={Map} alt="mapTap" />
-              <Box fontSize="20px" fontWeight="700">
+              <Map
+                width="14"
+                height="14"
+                fill={isMapTab === "map" ? "black" : "rgba(0, 0, 0, 0.25)"}
+              />
+              <Box
+                fontSize="20px"
+                fontWeight="700"
+                color={isMapTab === "map" ? "black" : "rgba(0, 0, 0, 0.25)"}
+              >
                 Map
               </Box>
             </Flex>
@@ -41,12 +56,24 @@ const Nav = () => {
               align="center"
               w="72px"
               h="46px"
+              ml="20px"
+              fill={isMapTab === "board" ? "black" : "rgba(0, 0, 0, 0.25)"}
+              borderBottom={isMapTab === "board" ? "2px solid black" : "none"}
               onClick={() => {
+                setIsMapTab("board");
                 navigate("/board");
               }}
             >
-              <Image w="14px" h="14px" src={Board} alt="boardTap" />
-              <Box fontSize="20px" fontWeight="700">
+              <Board
+                width="14"
+                height="14"
+                fill={isMapTab === "map" ? "black" : "rgba(0, 0, 0, 0.25)"}
+              />
+              <Box
+                fontSize="20px"
+                fontWeight="700"
+                color={isMapTab === "board" ? "black" : "rgba(0, 0, 0, 0.25)"}
+              >
                 Board
               </Box>
             </Flex>
