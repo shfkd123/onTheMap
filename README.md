@@ -1,27 +1,20 @@
-# React + TypeScript + Vite
+# onTheMap 
+## 기업협업 기간동안 비즈레시피에서 진행한 기업 과제
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### 📍 과제 설명
+-  로그인 폼 및 조회 페이지 구현
+### 📍 개발 기간
+-  2023.07.21 ~ 2023.07.25
 
-Currently, two official plugins are available:
+### ✨ 구현 포인트
+- 로그인 시, 2개의 메뉴 노출 MAP BOARD
+- 1차(areaMap)과제 Map 노출
+- 페이지네이션 구현 (2개)
+- 데이터 조회 페이지 (체크박스, 테이블, 페이지네이션)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### ✨ 사용기술
+- React
+- Vite 
+- Chakra UI
+- TypeScript
+- Naver Map API
